@@ -1,0 +1,28 @@
+.search {
+    position: relative;
+    left: 33%;
+    margin-top: 3%;
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 30%;
+    height: 50px;
+    padding-left: 20px;
+    .search-bar {
+        display: inline-block;
+        position: absolute;
+        padding-left: 45px;
+        padding-top: 10px;
+        width: 80%;
+        height: 35px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        outline: none;
+    }
+    .w-1 {
+        width: 50px;
+        position: fixed;
+        right: 40px;
+        cursor: pointer;
+    }
+}

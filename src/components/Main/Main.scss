@@ -1,0 +1,21 @@
+.wrapper {
+  justify-content: center;
+  column-count: 3;
+  margin-top: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+  .wrapper-items {
+    li {
+      list-style-type: none;
+      :hover {
+        cursor: pointer;
+        color: black;
+      }
+      img {
+        object-fit: fill;
+        width: 60%;
+        border-radius: 5px;
+      }
+    }
+  }
+}
