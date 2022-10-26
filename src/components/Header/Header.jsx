@@ -11,7 +11,7 @@ function Header(props) {
         strokeWidth={1}
         stroke="currentColor"
         className="w-5 h-5"
-        style={{ width: 25, marginTop: 11 }}
+        style={{ width: 20, marginTop: 9 }}
       >
         <path
           strokeLinecap="round"

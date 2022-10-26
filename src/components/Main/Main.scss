@@ -1,10 +1,15 @@
 .wrapper {
-  justify-content: center;
   column-count: 3;
-  margin-top: 30px;
-  margin-left: 10%;
-  margin-right: 10%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-top: 5%;
+  margin-left: 21%;
+  width: 55%;
   .wrapper-items {
+    position: relative;
+    :hover .overlay {
+      opacity: 1;
+    }
     li {
       list-style-type: none;
       :hover {
@@ -12,9 +17,32 @@
         color: black;
       }
       img {
-        object-fit: fill;
-        width: 60%;
+        width: 100%;
         border-radius: 5px;
+      }
+      .overlay {
+        position: absolute;
+        bottom: 2px;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        color: #f1f1f1;
+        width: 88%;
+        border-radius: 5px;
+        transition: 0.5s ease;
+        opacity: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        .img-expand {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+        }
+        .img-love {
+          display: flex;
+          justify-items: center;
+        }
       }
     }
   }

@@ -10,8 +10,7 @@ function App() {
 
 
   const keyAPI = "26032813-5eca57a90774446a771ac3a81"
-  const fetchAPI =
-    `https://pixabay.com/api/?key=${keyAPI}&q=${filter}&per_page=8&order=popular`;
+  const fetchAPI = `https://pixabay.com/api/?key=${keyAPI}&q=${filter}&per_page=8`;
 
 
   
