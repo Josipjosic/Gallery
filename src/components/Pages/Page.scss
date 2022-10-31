@@ -1,0 +1,32 @@
+.nav-bar {
+  .nav-title {
+    font-size: 30px;
+    position: absolute;
+    left: 40px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  .w-1 {
+    top: 40px;
+    width: 40px;
+    position: absolute;
+    right: 40px;
+    cursor: pointer;
+  }
+}
+.main-content {
+    position: absolute;
+    column-count: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-top: 5%;
+    margin-left: 21%;
+    width: 55%;
+    img {
+        width: 100%;
+        border-radius: 5px;
+      }
+
+}

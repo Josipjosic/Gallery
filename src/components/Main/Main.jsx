@@ -3,9 +3,12 @@ import { useState } from "react";
 import "./Main.scss";
 import Modal from "../Modal/Modal";
 
-function Main({ listItems }) {
+function Main({ listItems, setLiked, liked }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
+  const [itemLiked, setItemLiked] = useState(false);
+
+  console.log(liked)
 
   return (
     <div className="wrapper">
@@ -22,16 +25,15 @@ function Main({ listItems }) {
               <div className="overlay">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
+                  fill="white"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="img-expand"
-                  style={{ width: 20}}
+                  style={{ width: 20 }}
                   onClick={() => {
                     setSelImg(item.webformatURL);
                     setIsOpen(true);
-                    console.log(selImg);
                   }}
                 >
                   <path
@@ -47,7 +49,17 @@ function Main({ listItems }) {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="img-love"
-                  style={{ width: 50 }}
+                  style={{ width: 50, fill: itemLiked && 'red' }}
+                  onClick={() => {
+                    if (!liked.includes(item.webformatURL)) {
+                      setLiked((liked) => [...liked, item.webformatURL]);
+                      setItemLiked(true)
+                    } else if(liked.includes(item.webformatURL)){
+                      liked.splice(liked.indexOf(item.webformatURL), 1);
+                      setLiked((liked) => [...liked])
+                      setItemLiked(false);
+                    }
+                  }}
                 >
                   <path
                     strokeLinecap="round"
@@ -58,7 +70,16 @@ function Main({ listItems }) {
               </div>
             </li>
           </ul>
-          {isOpen && <Modal modalImg={selImg} setIsOpen={setIsOpen}></Modal>}
+          {isOpen && (
+            <Modal
+              setImgLiked={setItemLiked}
+              imgLiked={itemLiked}
+              modalImg={selImg}
+              setIsOpen={setIsOpen}
+              setLiked={setLiked}
+              liked={liked}
+            ></Modal>
+          )}
         </div>
       ))}
     </div>

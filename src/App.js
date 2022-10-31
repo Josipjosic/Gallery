@@ -7,11 +7,11 @@ function App() {
   
   const [list, setList] = useState([]);
   const [filter, setFilter] = useState('');
+  const [liked, setLiked] = useState([]);
 
 
   const keyAPI = "26032813-5eca57a90774446a771ac3a81"
   const fetchAPI = `https://pixabay.com/api/?key=${keyAPI}&q=${filter}&per_page=8`;
-
 
   
   useEffect(() => {
@@ -29,12 +29,11 @@ function App() {
     fetchData();
   }, [fetchAPI]);
 
-  console.log(list, filter);
 
   return (
     <div className="App">
-      <Header setFilter={setFilter} />
-      <Main listItems={list} filtered={filter}/>
+      <Header setFilter={setFilter} liked={liked} filter={filter} />
+      <Main listItems={list} filtered={filter} setLiked={setLiked} liked={liked}/>
     </div>
   );
 }

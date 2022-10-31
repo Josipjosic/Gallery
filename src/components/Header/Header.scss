@@ -7,6 +7,7 @@
   width: 25%;
   height: 39px;
   padding-left: 20px;
+  
   .search-bar {
     display: inline-block;
     position: absolute;
@@ -24,5 +25,17 @@
     position: fixed;
     right: 40px;
     cursor: pointer;
+  }
+  .like-counter {
+    position: fixed;
+    right: 45px;
+    top: 45px;
+    border-radius: 50%;
+    width: 9px;
+    height: 13px;
+    padding: 1px 3px;
+    color: white;
+    background: red;
+    text-align: center;
   }
 }
