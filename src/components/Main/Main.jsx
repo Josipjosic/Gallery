@@ -3,16 +3,13 @@ import { useState } from "react";
 import "./Main.scss";
 import Modal from "../Modal/Modal";
 
-function Main({ listItems, setLiked, liked }) {
+function Main({ listItems, setLiked, liked, style, handleClick}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
-  const [itemLiked, setItemLiked] = useState(false);
-
-  console.log(liked)
 
   return (
     <div className="wrapper">
-      {listItems.hits?.map((item) => (
+      {listItems.hits?.map((item, i) => (
         <div key={item.id}>
           <ul className="wrapper-items">
             <li>
@@ -49,15 +46,17 @@ function Main({ listItems, setLiked, liked }) {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="img-love"
-                  style={{ width: 50, fill: itemLiked && 'red' }}
+                  key={item.id}
+                  style={{ width: 50, fill: style[`${i}`] ? "red" : "none" }}
                   onClick={() => {
-                    if (!liked.includes(item.webformatURL)) {
-                      setLiked((liked) => [...liked, item.webformatURL]);
-                      setItemLiked(true)
-                    } else if(liked.includes(item.webformatURL)){
-                      liked.splice(liked.indexOf(item.webformatURL), 1);
-                      setLiked((liked) => [...liked])
-                      setItemLiked(false);
+                    if (!liked.includes(item)) {
+                      setLiked((liked) => [...liked, item]);
+                      setSelImg(item);
+                      handleClick(i);
+                    } else if (liked.includes(item)) {
+                      liked.splice(liked.indexOf(item), 1);
+                      setLiked((liked) => [...liked]);
+                      handleClick(i);
                     }
                   }}
                 >
@@ -72,12 +71,12 @@ function Main({ listItems, setLiked, liked }) {
           </ul>
           {isOpen && (
             <Modal
-              setImgLiked={setItemLiked}
-              imgLiked={itemLiked}
               modalImg={selImg}
               setIsOpen={setIsOpen}
               setLiked={setLiked}
               liked={liked}
+              style={style}
+              handleClick={handleClick}
             ></Modal>
           )}
         </div>

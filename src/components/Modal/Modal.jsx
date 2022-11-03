@@ -7,8 +7,9 @@ function Modal({
   modalImg,
   setLiked,
   liked,
-  setImgLiked,
-  imgLiked,
+  style,
+  handleClick,
+  i
 }) {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -20,7 +21,6 @@ function Modal({
     setIsHovering(false);
   };
 
-  console.log(liked);
   return (
     <div className="dark-bg">
       <div className="centered">
@@ -57,15 +57,15 @@ function Modal({
               strokeWidth={1}
               stroke="currentColor"
               className="img-love"
-              style={{ width: 80, fill: imgLiked && "red" }}
+              style={{ width: 80, fill: style[`${i}`] ? "red" : "none" }}
               onClick={() => {
                 if (!liked.includes(modalImg)) {
                   setLiked((liked) => [...liked, modalImg]);
-                  setImgLiked(true);
+                  handleClick();
                 } else if (liked.includes(modalImg)) {
                   liked.splice(liked.indexOf(modalImg), 1);
                   setLiked((liked) => [...liked]);
-                  setImgLiked(false);
+                  handleClick();
                 }
               }}
             >
