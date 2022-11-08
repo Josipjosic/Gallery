@@ -12,10 +12,9 @@ function Page() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
-  const [itemLiked, setItemLiked] = useState(false);
-
 
   console.log(wasLiked)
+
 
   return (
     <div>
@@ -39,28 +38,19 @@ function Page() {
         </Link>
       </div>
       <div className="main-content">
-        {wasLiked.map((img, i) => (
-          <div>
+        {wasLiked.map((img) => (
+          <div key={img.id}>
             <div
               key={img.id}
               className="content"
               onClick={() => {
-                setSelImg(img.webformatURL);
+                setSelImg(img);
                 setIsOpen(true);
-                console.log(img)
               }}
             >
-              <img src={img.webformatURL} alt="ok" key={img.id}></img>
+              <img src={img.webformatURL} alt="ok" key={img.webformatURL}></img>
             </div>
-            {isOpen && (
-              <Modal
-                i = {i}
-                setImgLiked={setItemLiked}
-                liked={itemLiked}
-                modalImg={selImg}
-                setIsOpen={setIsOpen}
-              ></Modal>
-            )}
+            {isOpen && <Modal modalImg={selImg} setIsOpen={setIsOpen} ></Modal>}
           </div>
         ))}
       </div>

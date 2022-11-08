@@ -3,13 +3,33 @@ import { useState } from "react";
 import "./Main.scss";
 import Modal from "../Modal/Modal";
 
-function Main({ listItems, setLiked, liked, style, handleClick}) {
+function Main({ listItems, setLiked, liked }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
+  const [style, setStyle] = useState([]);
+
+  const handleClick = (id) => {
+    setStyle((prevState) => ({
+      ...style,
+      [id]: !prevState[id],
+    }));
+  };
+
+  const likeHandler = (item, id) => {
+    if (!liked.includes(item)) {
+      setLiked((liked) => [...liked, item]);
+      handleClick(id);
+      console.log(item);
+    } else if (liked.includes(item)) {
+      liked.splice(liked.indexOf(item), 1);
+      setLiked((liked) => [...liked]);
+      handleClick(id);
+    }
+  };
 
   return (
     <div className="wrapper">
-      {listItems.hits?.map((item, i) => (
+      {listItems.hits?.map((item) => (
         <div key={item.id}>
           <ul className="wrapper-items">
             <li>
@@ -29,7 +49,7 @@ function Main({ listItems, setLiked, liked, style, handleClick}) {
                   className="img-expand"
                   style={{ width: 20 }}
                   onClick={() => {
-                    setSelImg(item.webformatURL);
+                    setSelImg(item);
                     setIsOpen(true);
                   }}
                 >
@@ -47,17 +67,12 @@ function Main({ listItems, setLiked, liked, style, handleClick}) {
                   stroke="currentColor"
                   className="img-love"
                   key={item.id}
-                  style={{ width: 50, fill: style[`${i}`] ? "red" : "none" }}
+                  style={{
+                    width: 50,
+                    fill: style[`${item.id}`] ? "red" : "none",
+                  }}
                   onClick={() => {
-                    if (!liked.includes(item)) {
-                      setLiked((liked) => [...liked, item]);
-                      setSelImg(item);
-                      handleClick(i);
-                    } else if (liked.includes(item)) {
-                      liked.splice(liked.indexOf(item), 1);
-                      setLiked((liked) => [...liked]);
-                      handleClick(i);
-                    }
+                    likeHandler(item, item.id);
                   }}
                 >
                   <path
@@ -69,18 +84,17 @@ function Main({ listItems, setLiked, liked, style, handleClick}) {
               </div>
             </li>
           </ul>
-          {isOpen && (
-            <Modal
-              modalImg={selImg}
-              setIsOpen={setIsOpen}
-              setLiked={setLiked}
-              liked={liked}
-              style={style}
-              handleClick={handleClick}
-            ></Modal>
-          )}
         </div>
       ))}
+      {isOpen && (
+        <Modal
+          addStyle={style}
+          modalImg={selImg}
+          setIsOpen={setIsOpen}
+          likeHandler={likeHandler}
+          handleClick={handleClick}
+        ></Modal>
+      )}
     </div>
   );
 }

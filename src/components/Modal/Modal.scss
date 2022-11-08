@@ -1,12 +1,13 @@
 .dark-bg {
-  background-color: rgba(0, 0, 0, 0.137);
-  width: 102vw;
-  height: 63vw;
+  background-color: rgba(0, 0, 0, 0.432);
+  width: 211vh;
+  height: 107vh;
   z-index: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+
   .centered {
     position: fixed;
     top: 50%;
@@ -24,9 +25,9 @@
   position: relative;
   display: flex;
   justify-content: center;
-  .modal:hover + .img-love{
+  .modal:hover + .img-love {
     display: block;
-}
+  }
 
   img {
     border-radius: 5px;

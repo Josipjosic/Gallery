@@ -17,16 +17,17 @@
   }
 }
 .main-content {
-    position: absolute;
-    column-count: 3;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin-top: 5%;
-    margin-left: 21%;
-    width: 55%;
-    img {
-        width: 100%;
-        border-radius: 5px;
-      }
-
+  position: absolute;
+  column-count: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-top: 5%;
+  margin-left: 21%;
+  width: 55%;
+  height: 72%;
+  img {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }

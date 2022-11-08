@@ -2,15 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./Modal.scss";
 
-function Modal({
-  setIsOpen,
-  modalImg,
-  setLiked,
-  liked,
-  style,
-  handleClick,
-  i
-}) {
+function Modal({ setIsOpen, modalImg, handleClick, likeHandler, addStyle }) {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -29,7 +21,12 @@ function Modal({
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
         >
-          <img src={modalImg} alt={modalImg} width="auto" height="auto"></img>
+          <img
+            src={modalImg.webformatURL}
+            alt={modalImg.name}
+            width="auto"
+            height="auto"
+          ></img>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,16 +54,13 @@ function Modal({
               strokeWidth={1}
               stroke="currentColor"
               className="img-love"
-              style={{ width: 80, fill: style[`${i}`] ? "red" : "none" }}
+              style={{
+                width: 80,
+                fill: addStyle && addStyle[`${modalImg.id}`] ? "red" : "none",
+              }}
               onClick={() => {
-                if (!liked.includes(modalImg)) {
-                  setLiked((liked) => [...liked, modalImg]);
-                  handleClick();
-                } else if (liked.includes(modalImg)) {
-                  liked.splice(liked.indexOf(modalImg), 1);
-                  setLiked((liked) => [...liked]);
-                  handleClick();
-                }
+                likeHandler(modalImg);
+                handleClick(modalImg.id);
               }}
             >
               <path
