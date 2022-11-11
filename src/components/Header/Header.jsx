@@ -31,7 +31,7 @@ function Header({ filter, setFilter, liked}) {
         }}
         value={filter}
       ></input>
-      <Link to='/profile' state={liked}>
+      <Link to='/profile' >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

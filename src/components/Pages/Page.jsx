@@ -1,20 +1,40 @@
 import React from "react";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Page.scss";
 
 function Page() {
-  const location = useLocation();
-  const data = location.state;
-
-  const [wasLiked] = useState(data);
-
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
+  const [style, setStyle] = useState([]);
+  const [liked, setLiked] = useState(() => {
+    return JSON.parse(localStorage.getItem("liked")) || [];
+  });
 
-  console.log(wasLiked)
+  localStorage.setItem("liked", JSON.stringify(liked));
 
+  const handleClick = (id) => {
+    setStyle((prevState) => ({
+      ...style,
+      [id]: !prevState[id],
+    }));
+  };
+
+  console.log(style)
+
+
+  const likeHandler = (item, id) => {
+    if (!liked.includes(item)) {
+      setLiked((liked) => [...liked, item]);
+      handleClick(id);
+      console.log(item);
+    } else if (liked.includes(item)) {
+      liked.splice(liked.indexOf(item), 1);
+      setLiked((liked) => [...liked]);
+      handleClick(id);
+    }
+  };
 
   return (
     <div>
@@ -38,7 +58,7 @@ function Page() {
         </Link>
       </div>
       <div className="main-content">
-        {wasLiked.map((img) => (
+        {liked.length > 0 ? liked.map((img) => (
           <div key={img.id}>
             <div
               key={img.id}
@@ -50,9 +70,17 @@ function Page() {
             >
               <img src={img.webformatURL} alt="ok" key={img.webformatURL}></img>
             </div>
-            {isOpen && <Modal modalImg={selImg} setIsOpen={setIsOpen} ></Modal>}
+            {isOpen && (
+              <Modal
+                modalImg={selImg}
+                setIsOpen={setIsOpen}
+                likeHandler={likeHandler}
+                handleClick={handleClick}
+                addStyle={style}
+              ></Modal>
+            )}
           </div>
-        ))}
+        )):<h2 className="content-text">No items added to the list!</h2>}
       </div>
     </div>
   );

@@ -3,27 +3,19 @@ import { useState } from "react";
 import "./Main.scss";
 import Modal from "../Modal/Modal";
 
-function Main({ listItems, setLiked, liked }) {
+function Main({ listItems, setLiked, liked, handleClick, style }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
-  const [style, setStyle] = useState([]);
 
-  const handleClick = (id) => {
-    setStyle((prevState) => ({
-      ...style,
-      [id]: !prevState[id],
-    }));
-  };
 
   const likeHandler = (item, id) => {
     if (!liked.includes(item)) {
       setLiked((liked) => [...liked, item]);
       handleClick(id);
-      console.log(item);
     } else if (liked.includes(item)) {
       liked.splice(liked.indexOf(item), 1);
       setLiked((liked) => [...liked]);
-      handleClick(id);
+      handleClick(id)
     }
   };
 

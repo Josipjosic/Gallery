@@ -1,4 +1,5 @@
 import React from "react";
+import Main from "../Main/Main";
 import { useState } from "react";
 import "./Modal.scss";
 
@@ -46,7 +47,7 @@ function Modal({ setIsOpen, modalImg, handleClick, likeHandler, addStyle }) {
             />
           </svg>
 
-          {isHovering && (
+          {isHovering && Main && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -61,6 +62,7 @@ function Modal({ setIsOpen, modalImg, handleClick, likeHandler, addStyle }) {
               onClick={() => {
                 likeHandler(modalImg);
                 handleClick(modalImg.id);
+                setIsOpen(false);
               }}
             >
               <path
