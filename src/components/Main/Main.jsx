@@ -26,7 +26,7 @@ function Main({ listItems, setLiked, liked, handleClick, style }) {
           <ul className="wrapper-items">
             <li>
               <img
-                src={item.previewURL}
+                src={item.webformatURL}
                 key={item.id}
                 alt={item.id}
                 className="grid-item"
