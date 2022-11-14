@@ -7,15 +7,15 @@ function Main({ listItems, setLiked, liked, handleClick, style }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
 
-
   const likeHandler = (item, id) => {
-    if (!liked.includes(item)) {
-      setLiked((liked) => [...liked, item]);
-      handleClick(id);
-    } else if (liked.includes(item)) {
+    const duplicate = liked.some((value) => value.id === item.id);
+    if (duplicate) {
       liked.splice(liked.indexOf(item), 1);
       setLiked((liked) => [...liked]);
-      handleClick(id)
+      handleClick(id);
+    } else if (!liked.includes(item)) {
+      setLiked((liked) => [...liked, item]);
+      handleClick(id);
     }
   };
 

@@ -62,7 +62,6 @@ function Modal({ setIsOpen, modalImg, handleClick, likeHandler, addStyle }) {
               onClick={() => {
                 likeHandler(modalImg);
                 handleClick(modalImg.id);
-                setIsOpen(false);
               }}
             >
               <path

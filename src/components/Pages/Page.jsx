@@ -7,12 +7,15 @@ import "./Page.scss";
 function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [selImg, setSelImg] = useState();
-  const [style, setStyle] = useState([]);
+  const [style, setStyle] = useState(() => {
+    return JSON.parse(localStorage.getItem("style")) || [];
+  });
   const [liked, setLiked] = useState(() => {
     return JSON.parse(localStorage.getItem("liked")) || [];
   });
 
   localStorage.setItem("liked", JSON.stringify(liked));
+  localStorage.setItem("style", JSON.stringify(style));
 
   const handleClick = (id) => {
     setStyle((prevState) => ({
@@ -20,21 +23,18 @@ function Page() {
       [id]: !prevState[id],
     }));
   };
-
-  console.log(style)
-
-
   const likeHandler = (item, id) => {
-    if (!liked.includes(item)) {
-      setLiked((liked) => [...liked, item]);
-      handleClick(id);
-      console.log(item);
-    } else if (liked.includes(item)) {
+    const duplicate = liked.some((value) => value.id === item.id);
+    if (duplicate) {
       liked.splice(liked.indexOf(item), 1);
       setLiked((liked) => [...liked]);
       handleClick(id);
+    } else if (!liked.includes(item)) {
+      setLiked((liked) => [...liked, item]);
+      handleClick(id);
     }
   };
+
 
   return (
     <div>
@@ -58,29 +58,37 @@ function Page() {
         </Link>
       </div>
       <div className="main-content">
-        {liked.length > 0 ? liked.map((img) => (
-          <div key={img.id}>
-            <div
-              key={img.id}
-              className="content"
-              onClick={() => {
-                setSelImg(img);
-                setIsOpen(true);
-              }}
-            >
-              <img src={img.webformatURL} alt="ok" key={img.webformatURL}></img>
+        {liked.length > 0 ? (
+          liked.map((img) => (
+            <div key={img.id}>
+              <div
+                key={img.id}
+                className="content"
+                onClick={() => {
+                  setSelImg(img);
+                  setIsOpen(true);
+                }}
+              >
+                <img
+                  src={img.webformatURL}
+                  alt="ok"
+                  key={img.webformatURL}
+                ></img>
+              </div>
+              {isOpen && (
+                <Modal
+                  modalImg={selImg}
+                  setIsOpen={setIsOpen}
+                  likeHandler={likeHandler}
+                  handleClick={handleClick}
+                  addStyle={style}
+                ></Modal>
+              )}
             </div>
-            {isOpen && (
-              <Modal
-                modalImg={selImg}
-                setIsOpen={setIsOpen}
-                likeHandler={likeHandler}
-                handleClick={handleClick}
-                addStyle={style}
-              ></Modal>
-            )}
-          </div>
-        )):<h2 className="content-text">No items added to the list!</h2>}
+          ))
+        ) : (
+          <h2 className="content-text">No items added to the list!</h2>
+        )}
       </div>
     </div>
   );

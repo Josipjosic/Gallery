@@ -9,14 +9,18 @@ function App() {
   const [liked, setLiked] = useState(() => {
     return JSON.parse(localStorage.getItem("liked")) || [];
   });
-  const [style, setStyle] = useState(false);
+  const [style, setStyle] = useState(() => {
+    return JSON.parse(localStorage.getItem("style")) || [];
+  });
 
   
   const keyAPI = "26032813-5eca57a90774446a771ac3a81";
   const fetchAPI = `https://pixabay.com/api/?key=${keyAPI}&q=${filter}&per_page=7`;
   
   localStorage.setItem("liked", JSON.stringify(liked));
-  
+  localStorage.setItem("style", JSON.stringify(style));
+
+
   
     const handleClick = (id) => {
       setStyle((prevState) => ({
